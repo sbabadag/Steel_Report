@@ -29,7 +29,7 @@ void initializeAssemblyModel(QSqlTableModel *assemblymodel)
     assemblymodel->setEditStrategy(QSqlTableModel::OnManualSubmit);
     assemblymodel->select();
 
-    assemblymodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
+    assemblymodel->setHeaderData(0, Qt::Horizontal, QObject::tr("P roje ID"));
     assemblymodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Assembly ID"));
     assemblymodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Assembly Class"));
     assemblymodel->setHeaderData(3, Qt::Horizontal, QObject::tr("POZ"));
