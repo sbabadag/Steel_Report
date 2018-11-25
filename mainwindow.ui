@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1029</width>
+    <width>1260</width>
     <height>673</height>
    </rect>
   </property>
@@ -23,8 +23,11 @@
       <height>511</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">selection-color: rgb(170, 0, 255);</string>
+    </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
@@ -36,7 +39,7 @@
         <x>10</x>
         <y>10</y>
         <width>931</width>
-        <height>421</height>
+        <height>181</height>
        </rect>
       </property>
      </widget>
@@ -53,6 +56,16 @@
        <string>PushButton</string>
       </property>
      </widget>
+     <widget class="QListView" name="listView">
+      <property name="geometry">
+       <rect>
+        <x>20</x>
+        <y>200</y>
+        <width>551</width>
+        <height>192</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">
@@ -66,6 +79,12 @@
         <width>911</width>
         <height>211</height>
        </rect>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(170, 170, 127);</string>
       </property>
      </widget>
      <widget class="QTableView" name="tableView_3">
@@ -96,11 +115,6 @@
      <attribute name="title">
       <string>Single</string>
      </attribute>
-    </widget>
-    <widget class="QWidget" name="tab_4">
-     <attribute name="title">
-      <string>Platinalar</string>
-     </attribute>
      <widget class="QTableView" name="tableView_4">
       <property name="geometry">
        <rect>
@@ -112,6 +126,21 @@
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab_4">
+     <attribute name="title">
+      <string>Platinalar</string>
+     </attribute>
+    </widget>
+   </widget>
+   <widget class="QListView" name="listView_2">
+    <property name="geometry">
+     <rect>
+      <x>990</x>
+      <y>20</y>
+      <width>256</width>
+      <height>401</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
@@ -119,7 +148,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1029</width>
+     <width>1260</width>
      <height>20</height>
     </rect>
    </property>

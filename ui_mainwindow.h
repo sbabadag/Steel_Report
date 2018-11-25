@@ -13,6 +13,7 @@
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
+#include <QtWidgets/QListView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
 #include <QtWidgets/QPushButton>
@@ -32,13 +33,15 @@ public:
     QWidget *tab;
     QTableView *tableView;
     QPushButton *pushButton;
+    QListView *listView;
     QWidget *tab_2;
     QTableView *tableView_2;
     QTableView *tableView_3;
     QLabel *label;
     QWidget *tab_3;
-    QWidget *tab_4;
     QTableView *tableView_4;
+    QWidget *tab_4;
+    QListView *listView_2;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -47,26 +50,32 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QStringLiteral("MainWindow"));
-        MainWindow->resize(1029, 673);
+        MainWindow->resize(1260, 673);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setGeometry(QRect(0, 0, 971, 511));
+        tabWidget->setStyleSheet(QStringLiteral("selection-color: rgb(170, 0, 255);"));
         tab = new QWidget();
         tab->setObjectName(QStringLiteral("tab"));
         tableView = new QTableView(tab);
         tableView->setObjectName(QStringLiteral("tableView"));
-        tableView->setGeometry(QRect(10, 10, 931, 421));
+        tableView->setGeometry(QRect(10, 10, 931, 181));
         pushButton = new QPushButton(tab);
         pushButton->setObjectName(QStringLiteral("pushButton"));
         pushButton->setGeometry(QRect(20, 440, 80, 21));
+        listView = new QListView(tab);
+        listView->setObjectName(QStringLiteral("listView"));
+        listView->setGeometry(QRect(20, 200, 551, 192));
         tabWidget->addTab(tab, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
         tableView_2 = new QTableView(tab_2);
         tableView_2->setObjectName(QStringLiteral("tableView_2"));
         tableView_2->setGeometry(QRect(30, 10, 911, 211));
+        tableView_2->setAutoFillBackground(false);
+        tableView_2->setStyleSheet(QStringLiteral("background-color: rgb(170, 170, 127);"));
         tableView_3 = new QTableView(tab_2);
         tableView_3->setObjectName(QStringLiteral("tableView_3"));
         tableView_3->setGeometry(QRect(30, 230, 911, 211));
@@ -76,17 +85,20 @@ public:
         tabWidget->addTab(tab_2, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QStringLiteral("tab_3"));
+        tableView_4 = new QTableView(tab_3);
+        tableView_4->setObjectName(QStringLiteral("tableView_4"));
+        tableView_4->setGeometry(QRect(10, 10, 931, 461));
         tabWidget->addTab(tab_3, QString());
         tab_4 = new QWidget();
         tab_4->setObjectName(QStringLiteral("tab_4"));
-        tableView_4 = new QTableView(tab_4);
-        tableView_4->setObjectName(QStringLiteral("tableView_4"));
-        tableView_4->setGeometry(QRect(10, 10, 931, 461));
         tabWidget->addTab(tab_4, QString());
+        listView_2 = new QListView(centralWidget);
+        listView_2->setObjectName(QStringLiteral("listView_2"));
+        listView_2->setGeometry(QRect(990, 20, 256, 401));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1029, 20));
+        menuBar->setGeometry(QRect(0, 0, 1260, 20));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
@@ -97,7 +109,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(1);
+        tabWidget->setCurrentIndex(2);
 
 
         QMetaObject::connectSlotsByName(MainWindow);

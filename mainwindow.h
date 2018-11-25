@@ -10,6 +10,12 @@
 #include <QSqlTableModel>
 #include <QTableView>
 #include <QItemSelectionModel>
+#include <qfile.h>
+#include <QTextStream>
+#include <QStringListModel>
+
+
+
 
 
 namespace Ui {
@@ -24,6 +30,7 @@ public:
     QSqlTableModel *projemodel;
     QSqlTableModel *assemblymodel;
     QSqlTableModel *asspartsmodel;
+    QSqlTableModel *singlemodel;
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 

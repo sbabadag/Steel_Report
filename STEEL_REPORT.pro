@@ -32,7 +32,8 @@ SOURCES += \
 
 HEADERS += \
         mainwindow.h \
-    connection.h
+    connection.h \
+    myfunctions.h
 
 FORMS += \
         mainwindow.ui

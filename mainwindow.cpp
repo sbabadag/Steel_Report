@@ -46,12 +46,31 @@ void initializeAsspartsModel(QSqlTableModel *asspartsmodel)
     asspartsmodel->select();
 
     asspartsmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
-    asspartsmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Part ID"));
-    asspartsmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("ID"));
-    asspartsmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("POZ"));
-    asspartsmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("Adet"));
-    asspartsmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Ağırlık"));
-    asspartsmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Boya Alanı"));
+    asspartsmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Part ID"));
+    asspartsmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("ID"));
+    asspartsmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("POZ"));
+    asspartsmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Adet"));
+    asspartsmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Ağırlık"));
+    asspartsmodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Boya Alanı"));
+
+}
+
+void initializeSingleModel(QSqlTableModel *singlemodel)
+{
+    singlemodel->setTable("single");
+    singlemodel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    singlemodel->select();
+
+    singlemodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
+    singlemodel->setHeaderData(1, Qt::Horizontal, QObject::tr("ID"));
+    singlemodel->setHeaderData(2, Qt::Horizontal, QObject::tr("POZ"));
+    singlemodel->setHeaderData(3, Qt::Horizontal, QObject::tr("Profil"));
+    singlemodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Adet"));
+    singlemodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Ağırlık"));
+    singlemodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Uzunluk"));
+    singlemodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Malzeme sınıfı"));
+    singlemodel->setHeaderData(8, Qt::Horizontal, QObject::tr("Boya Alanı"));
+
 
 }
 
@@ -64,24 +83,29 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     createConnection();
 
-
-
-
-
-
-    projemodel = new QSqlTableModel();
+    projemodel    = new QSqlTableModel();
     assemblymodel = new  QSqlTableModel() ;
     asspartsmodel = new  QSqlTableModel() ;
+    singlemodel   = new  QSqlTableModel() ;
 
     initializeProjeModel(projemodel);
     initializeAssemblyModel(assemblymodel);
     initializeAsspartsModel(asspartsmodel);
+    initializeSingleModel(singlemodel);
 
   ui->tableView->setModel(projemodel);
   ui->tableView_2->setModel(assemblymodel);
   ui->tableView_3->setModel(asspartsmodel);
+  ui->tableView_4->setModel(singlemodel);
+
   QObject::connect(ui->tableView_2->selectionModel(), SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
         this,SLOT(UpdateDetail(const QModelIndex &, const QModelIndex &)));
+
+  //
+  auto record = assemblymodel->record(0);
+  int id = record.value("selfid").toInt();
+  asspartsmodel->setFilter(QString("aid=%1").arg(id));
+  ui->tableView_2->update();
 }
 
 MainWindow::~MainWindow()
@@ -100,6 +124,7 @@ void MainWindow::UpdateDetail(const QModelIndex &a, const QModelIndex &b)
             int id = record.value("selfid").toInt();
             asspartsmodel->setFilter(QString("aid=%1").arg(id));
             ui->tableView_2->update();
+
 
 
 }
