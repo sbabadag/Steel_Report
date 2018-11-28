@@ -123,7 +123,7 @@ void MainWindow::UpdateDetail(const QModelIndex &a, const QModelIndex &b)
             auto record = assemblymodel->record(a.row());
             int id = record.value("selfid").toInt();
             asspartsmodel->setFilter(QString("aid=%1").arg(id));
-            ui->tableView_2->update();
+        //    ui->tableView_2->update();
 
 
 

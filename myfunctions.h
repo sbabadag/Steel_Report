@@ -90,14 +90,14 @@ if(!file.open(QIODevice::ReadOnly)) {
 QTextStream in(&file);
 QStringList fields;
 std::vector<TeklaAssembly*> Assembly_Part_list;
-std::vector<TeklaPart*> *Part_list=NULL;
+std::vector<TeklaPart*> *Part_list;
 
 
 TeklaPart *APart;
 TeklaAssembly *AAss;
-QString tstr = "--------------------------------------------------------------------------";
 QString QStr;
-int Assembly_Count = 0;
+int Assembly_Count  = 0;
+Part_list           = new std::vector<TeklaPart*>;
 
 
 while(!in.atEnd()) {
@@ -111,34 +111,24 @@ while(!in.atEnd()) {
        (QStr  != "Assembly")
     {
 
-
-        if (fields.size() == 2)
-        {
-            AAss->Part_list = Part_list;
-        }
-
-
         if (fields.size() == 4)
         {
-            if (Part_list != NULL) {
-                AAss->Part_list = Part_list;
-            }
-            AAss = new TeklaAssembly;
+            AAss                = new TeklaAssembly;
             AAss->ID            = Assembly_Count;
             AAss->Assemblypos   = fields[0];
             AAss->Quantity      = fields[1].toInt();
             AAss->Mainpart      = fields[2];
             AAss->Weight        = fields[3].toDouble();
+            Part_list           = new std::vector<TeklaPart*>;
+            AAss->Part_list     = Part_list;
             Assembly_Part_list.push_back(AAss);
             Assembly_Count++;
-            Part_list = new std::vector<TeklaPart*>;
-
         }
 
         if (fields.size() == 6)
         {
 
-        APart = new TeklaPart;
+        APart            = new TeklaPart;
         APart->PartPos   = fields[0];
         APart->Profile   = fields[2];
         APart->Quantity  = fields[1].toInt();

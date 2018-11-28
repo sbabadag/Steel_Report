@@ -86,9 +86,9 @@ static bool createConnection()
        query.exec(str);
        //
         auto PP = A[i]->Part_list;
-        for (unsigned int i=0; i<PP->size();i++)
+        for (unsigned int j=0; j<PP->size();j++)
         {
-            QString str = QString("insert into ass_parts values(0,%1,'%2',%3,%4,%5,%6)").arg(PP->at(i)->owner).arg(i).arg(PP->at(i)->PartPos).arg(PP->at(i)->Quantity).arg(PP->at(i)->Weight).arg(PP->at(i)->Weight);
+            QString str = QString("insert into ass_parts values(0,%1,'%2',%3,%4,%5,%6)").arg(PP->at(j)->owner).arg(j).arg(PP->at(j)->PartPos).arg(PP->at(j)->Quantity).arg(PP->at(j)->Weight).arg(PP->at(j)->Weight);
             query.exec(str);
 
         }
