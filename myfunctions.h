@@ -21,16 +21,16 @@ struct TeklaPart {
     QString Profile;
     int Quantity;
     QString Material;
-    int Length;
+    unsigned int Length;
     double Area;
     double Weight;
-    int owner;
+    unsigned int owner;
 };
 
 struct TeklaAssembly {
-    int ID;
+    unsigned int ID;
     QString Assemblypos;
-    int Quantity;
+    unsigned int Quantity;
     QString Mainpart;
     double Weight;
     std::vector<TeklaPart*> *Part_list;

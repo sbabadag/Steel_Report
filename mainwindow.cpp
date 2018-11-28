@@ -105,7 +105,7 @@ MainWindow::MainWindow(QWidget *parent) :
   auto record = assemblymodel->record(0);
   int id = record.value("selfid").toInt();
   asspartsmodel->setFilter(QString("aid=%1").arg(id));
-  ui->tableView_2->update();
+ // ui->tableView_2->update();
 }
 
 MainWindow::~MainWindow()
