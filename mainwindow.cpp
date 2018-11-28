@@ -31,11 +31,10 @@ void initializeAssemblyModel(QSqlTableModel *assemblymodel)
 
     assemblymodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
     assemblymodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Assembly ID"));
-    assemblymodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Assembly Class"));
-    assemblymodel->setHeaderData(3, Qt::Horizontal, QObject::tr("POZ"));
-    assemblymodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Adet"));
-    assemblymodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Ağırlık"));
-    assemblymodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Boya Alanı"));
+    assemblymodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Assembly POZU"));
+    assemblymodel->setHeaderData(3, Qt::Horizontal, QObject::tr("Adet"));
+    assemblymodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Ağırlık"));
+    assemblymodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Boya Alanı"));
 
 }
 
@@ -45,7 +44,7 @@ void initializeAsspartsModel(QSqlTableModel *asspartsmodel)
     asspartsmodel->setEditStrategy(QSqlTableModel::OnManualSubmit);
     asspartsmodel->select();
 
-    asspartsmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
+    asspartsmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"),0);
     asspartsmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Part ID"));
     asspartsmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("ID"));
     asspartsmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("POZ"));
@@ -97,6 +96,15 @@ MainWindow::MainWindow(QWidget *parent) :
   ui->tableView_2->setModel(assemblymodel);
   ui->tableView_3->setModel(asspartsmodel);
   ui->tableView_4->setModel(singlemodel);
+  //
+  ui->tableView_2->hideColumn(0);
+  ui->tableView_2->hideColumn(1);
+  ui->tableView_3->hideColumn(0);
+  ui->tableView_3->hideColumn(1);
+  ui->tableView_3->hideColumn(2);
+
+
+
 
   QObject::connect(ui->tableView_2->selectionModel(), SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
         this,SLOT(UpdateDetail(const QModelIndex &, const QModelIndex &)));

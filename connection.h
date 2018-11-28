@@ -96,14 +96,6 @@ static bool createConnection()
     }
 
 
-
-
- //  query.exec("SELECT * FROM ass_parts WHERE (ass_parts.aid=assembly.selfid)");
-
-
-
-
-
     return true;
 }
 //! [0]
