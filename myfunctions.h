@@ -40,9 +40,9 @@ struct TeklaAssembly {
 };
 
 
-std::vector<TeklaPart*> ReadPartListFile()
+std::vector<TeklaPart*> ReadPartListFile(QString f)
 {
-QFile file("Part_List.xsr");
+QFile file(f);
 if(!file.open(QIODevice::ReadOnly)) {
     QMessageBox::information(0, "error", file.errorString());
 }
@@ -83,9 +83,9 @@ file.close();
  return Part_list;
 }
 
-std::vector<TeklaAssembly*> ReadAssemlyPartListFile()
+std::vector<TeklaAssembly*> ReadAssemlyPartListFile(QString f)
 {
-QFile file("Assembly_Part_List.xsr");
+QFile file(f);
 if(!file.open(QIODevice::ReadOnly)) {
     QMessageBox::information(0, "error", file.errorString());
 }
@@ -147,5 +147,6 @@ while(!in.atEnd()) {
 file.close();
  return Assembly_Part_list;
 }
+
 
 

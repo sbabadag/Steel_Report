@@ -27,6 +27,7 @@ QString MainWindow::GetAssemblyFileName()
     return Ass_filename;
 }
 
+
 void initializeProjeModel(QSqlTableModel *projemodel)
 {
     projemodel->setTable("proje");
@@ -111,38 +112,80 @@ MainWindow::MainWindow(QWidget *parent) :
     createConnection();
 
     projemodel    = new QSqlTableModel();
-    assemblymodel = new  QSqlTableModel() ;
-    asspartsmodel = new  QSqlTableModel() ;
-    singlemodel   = new  QSqlTableModel() ;
-
     initializeProjeModel(projemodel);
-    initializeAssemblyModel(assemblymodel);
-    initializeAsspartsModel(asspartsmodel);
-    initializeSingleModel(singlemodel);
-
-  ui->tableView->setModel(projemodel);
-  ui->tableView_2->setModel(assemblymodel);
-  ui->tableView_3->setModel(asspartsmodel);
-  ui->tableView_4->setModel(singlemodel);
-  /*
-  ui->tableView_2->hideColumn(0);
-  ui->tableView_2->hideColumn(1);
-  ui->tableView_3->hideColumn(0);
-  ui->tableView_3->hideColumn(1);
-  ui->tableView_3->hideColumn(2);
-  ui->tableView->hideColumn(0);
-
-  */
-
-  ui->tableView->setIndexWidget(projemodel->index(0,4), ui->pushButton);
-
-  QObject::connect(ui->tableView_2->selectionModel(), SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
-        this,SLOT(UpdateDetail(const QModelIndex &, const QModelIndex &)));
+    ui->tableView->setModel(projemodel);
+    ui->tableView->setIndexWidget(projemodel->index(0,4), ui->pushButton);
 
   //
-  auto record = assemblymodel->record(0);
-  int id = record.value("selfid").toInt();
-  asspartsmodel->setFilter(QString("aid=%1").arg(id));
+//  auto record = assemblymodel->record(0);
+//  int id = record.value("selfid").toInt();
+//  asspartsmodel->setFilter(QString("aid=%1").arg(id));
+}
+
+void  MainWindow::OpenProject()
+{
+    QSqlDatabase db = QSqlDatabase::addDatabase("QSQLITE");
+    db.setDatabaseName("tsteel");
+    if (!db.open()) {
+        QMessageBox::critical(nullptr, QObject::tr("Cannot open database"),
+            QObject::tr("Unable to establish a database connection.\n"
+                        "This example needs SQLite support. Please read "
+                        "the Qt SQL driver documentation for information how "
+                        "to build it.\n\n"
+                        "Click Cancel to exit."), QMessageBox::Cancel);
+    }
+    QSqlQuery query;
+
+
+
+auto P = ReadPartListFile(GetPartFileName());
+auto A = ReadAssemlyPartListFile(GetAssemblyFileName());
+
+for (unsigned int i=0; i<P.size();i++)
+{
+    QString str = QString("insert into single values(0,%1,'%2','%3',%4,0,%5,%6,'%7',%8)").arg(i).arg(P[i]->PartPos).arg(P[i]->Profile).arg(P[i]->Quantity).arg(P[i]->Weight).arg(P[i]->Length).arg(P[i]->Material).arg(P[i]->Area);
+   query.exec(str);
+}
+
+//
+
+for (unsigned int i=0; i<A.size();i++)
+{
+    QString str = QString("insert into assembly values(0,%1,'%2','%3',%4,0,%5,'01-01-2000','01-01-2000','01-01-2000',' ',' ')").arg(A[i]->ID).arg(A[i]->Assemblypos).arg(A[i]->Profile).arg(A[i]->Quantity).arg(A[i]->Weight);
+   query.exec(str);
+   //
+    auto PP = A[i]->Part_list;
+    for (unsigned int j=0; j<PP->size();j++)
+    {
+        QString str = QString("insert into ass_parts values(0,%1,%2,'%3','%4',%5,0,%6,%7,'01-01-2000')").arg(PP->at(j)->owner).arg(j).arg(PP->at(j)->PartPos).arg(PP->at(j)->Profile).arg(PP->at(j)->Quantity).arg(PP->at(j)->Weight).arg(PP->at(j)->Weight);
+        query.exec(str);
+
+    }
+}
+assemblymodel = new  QSqlTableModel() ;
+asspartsmodel = new  QSqlTableModel() ;
+singlemodel   = new  QSqlTableModel() ;
+
+initializeAssemblyModel(assemblymodel);
+initializeAsspartsModel(asspartsmodel);
+initializeSingleModel(singlemodel);
+
+ui->tableView_2->setModel(assemblymodel);
+ui->tableView_3->setModel(asspartsmodel);
+ui->tableView_4->setModel(singlemodel);
+//
+ui->tableView_2->hideColumn(0);
+ui->tableView_2->hideColumn(1);
+ui->tableView_3->hideColumn(0);
+ui->tableView_3->hideColumn(1);
+ui->tableView_3->hideColumn(2);
+ui->tableView->hideColumn(0);
+
+
+QObject::connect(ui->tableView_2->selectionModel(), SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
+      this,SLOT(UpdateDetail(const QModelIndex &, const QModelIndex &)));
+
+
 }
 
 MainWindow::~MainWindow()
@@ -160,8 +203,7 @@ void MainWindow::UpdateDetail(const QModelIndex &a, const QModelIndex &b)
 
 void MainWindow::on_pushButton_clicked()
 {
-    GetAssemblyFileName();
-    GetPartFileName();
+    OpenProject();
 }
 
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)

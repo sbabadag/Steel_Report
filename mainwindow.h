@@ -35,6 +35,7 @@ public:
     ~MainWindow();
     QString GetPartFileName();
     QString GetAssemblyFileName();
+    void OpenProject();
 
 
 
