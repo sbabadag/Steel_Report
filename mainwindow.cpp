@@ -32,10 +32,11 @@ void initializeAssemblyModel(QSqlTableModel *assemblymodel)
     assemblymodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
     assemblymodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Assembly ID"));
     assemblymodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Assembly POZU"));
-    assemblymodel->setHeaderData(3, Qt::Horizontal, QObject::tr("Adet"));
-    assemblymodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Ağırlık"));
-    assemblymodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Boya Alanı"));
-
+    assemblymodel->setHeaderData(3, Qt::Horizontal, QObject::tr("Profil"));
+    assemblymodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Adet"));
+    assemblymodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Üretilen Adet"));
+    assemblymodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Ağırlık"));
+    assemblymodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Boya Alanı"));
 }
 
 void initializeAsspartsModel(QSqlTableModel *asspartsmodel)
@@ -44,14 +45,15 @@ void initializeAsspartsModel(QSqlTableModel *asspartsmodel)
     asspartsmodel->setEditStrategy(QSqlTableModel::OnManualSubmit);
     asspartsmodel->select();
 
-    asspartsmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"),0);
-    asspartsmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Part ID"));
-    asspartsmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("ID"));
-    asspartsmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("POZ"));
-    asspartsmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Adet"));
-    asspartsmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Ağırlık"));
-    asspartsmodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Boya Alanı"));
-
+    asspartsmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
+    asspartsmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Ass-Part ID"));
+    asspartsmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Part ID"));
+    asspartsmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("Part Pozu"));
+    asspartsmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Profil"));
+    asspartsmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Adet"));
+    asspartsmodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Üretilen Adet"));
+    asspartsmodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Ağırlık"));
+    asspartsmodel->setHeaderData(8, Qt::Horizontal, QObject::tr("Boya Alanı"));
 }
 
 void initializeSingleModel(QSqlTableModel *singlemodel)
@@ -61,16 +63,15 @@ void initializeSingleModel(QSqlTableModel *singlemodel)
     singlemodel->select();
 
     singlemodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
-    singlemodel->setHeaderData(1, Qt::Horizontal, QObject::tr("ID"));
+    singlemodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Part ID"));
     singlemodel->setHeaderData(2, Qt::Horizontal, QObject::tr("POZ"));
     singlemodel->setHeaderData(3, Qt::Horizontal, QObject::tr("Profil"));
     singlemodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Adet"));
-    singlemodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Ağırlık"));
-    singlemodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Uzunluk"));
-    singlemodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Malzeme sınıfı"));
-    singlemodel->setHeaderData(8, Qt::Horizontal, QObject::tr("Boya Alanı"));
-
-
+    singlemodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Üretilen Adet"));
+    singlemodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Ağırlık"));
+    singlemodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Uzunluk"));
+    singlemodel->setHeaderData(8, Qt::Horizontal, QObject::tr("Malzeme sınıfı"));
+    singlemodel->setHeaderData(9, Qt::Horizontal, QObject::tr("Boya Alanı"));
 }
 
 

@@ -20,6 +20,7 @@ struct TeklaPart {
     QString PartPos;
     QString Profile;
     int Quantity;
+    int mQuantity;
     QString Material;
     unsigned int Length;
     double Area;
@@ -28,10 +29,11 @@ struct TeklaPart {
 };
 
 struct TeklaAssembly {
-    unsigned int ID;
+     int ID;
     QString Assemblypos;
-    unsigned int Quantity;
-    QString Mainpart;
+    QString Profile;
+     int Quantity;
+     int mQuantity;
     double Weight;
     std::vector<TeklaPart*> *Part_list;
 };
@@ -39,7 +41,7 @@ struct TeklaAssembly {
 
 std::vector<TeklaPart*> ReadPartListFile()
 {
-QFile file("C:/Users/sbaba/Documents/build-STEEL_REPORT-Desktop_Qt_5_11_1_MinGW_32bit-Debug/debug/Part_List.xsr");
+QFile file("Part_List.xsr");
 if(!file.open(QIODevice::ReadOnly)) {
     QMessageBox::information(0, "error", file.errorString());
 }
@@ -82,7 +84,7 @@ file.close();
 
 std::vector<TeklaAssembly*> ReadAssemlyPartListFile()
 {
-QFile file("C:/Users/sbaba/Documents/build-STEEL_REPORT-Desktop_Qt_5_11_1_MinGW_32bit-Debug/debug/Assembly_Part_List.xsr");
+QFile file("Assembly_Part_List.xsr");
 if(!file.open(QIODevice::ReadOnly)) {
     QMessageBox::information(0, "error", file.errorString());
 }
@@ -117,7 +119,7 @@ while(!in.atEnd()) {
             AAss->ID            = Assembly_Count;
             AAss->Assemblypos   = fields[0];
             AAss->Quantity      = fields[1].toInt();
-            AAss->Mainpart      = fields[2];
+            AAss->Profile      = fields[2];
             AAss->Weight        = fields[3].toDouble();
             Part_list           = new std::vector<TeklaPart*>;
             AAss->Part_list     = Part_list;
