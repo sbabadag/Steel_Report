@@ -15,6 +15,7 @@
 #include <qfile.h>
 #include <QTextStream>
 #include <QStringListModel>
+#include <QFileDialog>
 
 struct TeklaPart {
     QString PartPos;
@@ -146,3 +147,5 @@ while(!in.atEnd()) {
 file.close();
  return Assembly_Part_list;
 }
+
+

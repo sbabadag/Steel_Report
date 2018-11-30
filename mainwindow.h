@@ -33,11 +33,19 @@ public:
     QSqlTableModel *singlemodel;
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QString GetPartFileName();
+    QString GetAssemblyFileName();
+
+
 
 
 private slots:
     void UpdateDetail(const QModelIndex &a, const QModelIndex &b);
 
+
+    void on_pushButton_clicked();
+
+    void on_lineEdit_textChanged(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

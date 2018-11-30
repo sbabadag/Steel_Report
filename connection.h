@@ -27,7 +27,8 @@ static bool createConnection()
     query.exec("create table proje (pid int primary key,"
                                      "proje_adi varchar(40),"
                                      "bas_tarihi date,"
-                                     "bit_tarihi date)");
+                                    "bit_tarihi date,"
+                                    "buton int)");
 
     query.exec("create table platinalar (pid int ,"
                                    "selfid int,"
@@ -56,7 +57,11 @@ static bool createConnection()
                                      "adet int,"
                                      "uadet int,"
                                      "agirlik real,"
-                                     "boya_alani real)");
+                                     "catim_tarihi date,"
+                                     "kaynak_tarihi date,"
+                                     "boya_tarihi date,"
+                                     "imalatci varchar(50),"
+                                     "uygunsuzluk varchar(255) )");
 
 
     query.exec("create table ass_parts (pid int,"
@@ -66,10 +71,11 @@ static bool createConnection()
                                     "profil varchar(40),"
                                      "adet int,"
                                      "uadet int,"
+                                     "boya_alani real,"
                                      "agirlik real,"
-                                     "boya_alani real)");
+                                     "kesim_tarihi date)");
 
-    QString str = QString("insert into proje values(0,'ENGIE V1','2018-11-30','2018-12-30')");
+    QString str = QString("insert into proje values(0,'ENGIE V1','2018-11-30','2018-12-30',0)");
    query.exec(str);
 
     auto P = ReadPartListFile();
@@ -85,13 +91,13 @@ static bool createConnection()
 
     for (unsigned int i=0; i<A.size();i++)
     {
-        QString str = QString("insert into assembly values(0,%1,'%2','%3',%4,0,%5,%6)").arg(A[i]->ID).arg(A[i]->Assemblypos).arg(A[i]->Profile).arg(A[i]->Quantity).arg(A[i]->Weight).arg(A[i]->Weight);
+        QString str = QString("insert into assembly values(0,%1,'%2','%3',%4,0,%5,'01-01-2000','01-01-2000','01-01-2000',' ',' ')").arg(A[i]->ID).arg(A[i]->Assemblypos).arg(A[i]->Profile).arg(A[i]->Quantity).arg(A[i]->Weight);
        query.exec(str);
        //
         auto PP = A[i]->Part_list;
         for (unsigned int j=0; j<PP->size();j++)
         {
-            QString str = QString("insert into ass_parts values(0,%1,%2,'%3','%4',%5,0,%6,%7)").arg(PP->at(j)->owner).arg(j).arg(PP->at(j)->PartPos).arg(PP->at(j)->Profile).arg(PP->at(j)->Quantity).arg(PP->at(j)->Weight).arg(PP->at(j)->Weight);
+            QString str = QString("insert into ass_parts values(0,%1,%2,'%3','%4',%5,0,%6,%7,'01-01-2000')").arg(PP->at(j)->owner).arg(j).arg(PP->at(j)->PartPos).arg(PP->at(j)->Profile).arg(PP->at(j)->Quantity).arg(PP->at(j)->Weight).arg(PP->at(j)->Weight);
             query.exec(str);
 
         }
