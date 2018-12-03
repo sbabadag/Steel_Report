@@ -63,6 +63,17 @@ static bool createConnection()
                                      "imalatci varchar(50),"
                                      "uygunsuzluk varchar(255) )");
 
+    query.exec("create table imalat (pid int,"
+                                    "selfid int,"
+                                    "adet int,"
+                                    "poz varchar(40), "
+                                     "catim_tarihi date,"
+                                     "kaynak_tarihi date,"
+                                     "boya_tarihi date,"
+                                     "imalatci varchar(50),"
+                                     "uygunsuzluk varchar(255) )");
+
+
 
     query.exec("create table ass_parts (pid int,"
                                     "aid int,"

@@ -13,6 +13,7 @@
 #include <qfile.h>
 #include <QTextStream>
 #include <QStringListModel>
+#include <addmanu.h>
 
 
 
@@ -31,6 +32,8 @@ public:
     QSqlTableModel *assemblymodel;
     QSqlTableModel *asspartsmodel;
     QSqlTableModel *singlemodel;
+    QSqlTableModel *imalatmodel;
+
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     QString GetPartFileName();
@@ -48,8 +51,11 @@ private slots:
 
     void on_lineEdit_textChanged(const QString &arg1);
 
+    void on_tableView_2_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::MainWindow *ui;
+    Addmanu *Addmanudialog;
 };
 
 #endif // MAINWINDOW_H

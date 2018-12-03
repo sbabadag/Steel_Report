@@ -101,7 +101,22 @@ void initializeSingleModel(QSqlTableModel *singlemodel)
     singlemodel->setHeaderData(8, Qt::Horizontal, QObject::tr("Malzeme sınıfı"));
     singlemodel->setHeaderData(9, Qt::Horizontal, QObject::tr("Boya Alanı"));
 }
+void initializeImalatModel(QSqlTableModel *imalatmodel)
+{
+    imalatmodel->setTable("imalat");
+    imalatmodel->setEditStrategy(QSqlTableModel::OnManualSubmit);
+    imalatmodel->select();
 
+    imalatmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
+    imalatmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Ass. ID"));
+    imalatmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Adet"));
+    imalatmodel->setHeaderData(3, Qt::Horizontal, QObject::tr(" ASSEMBLY POZ"));
+    imalatmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Çatım tarih"));
+    imalatmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Kaynak tarihi"));
+    imalatmodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Boya tarihi"));
+    imalatmodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Uygunsuzluk"));
+    imalatmodel->setHeaderData(8, Qt::Horizontal, QObject::tr("İmalatı yapan"));
+}
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -109,6 +124,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
+    Addmanudialog = new Addmanu();
     createConnection();
 
     projemodel    = new QSqlTableModel();
@@ -165,14 +181,18 @@ for (unsigned int i=0; i<A.size();i++)
 assemblymodel = new  QSqlTableModel() ;
 asspartsmodel = new  QSqlTableModel() ;
 singlemodel   = new  QSqlTableModel() ;
+imalatmodel = new  QSqlTableModel() ;
 
 initializeAssemblyModel(assemblymodel);
 initializeAsspartsModel(asspartsmodel);
 initializeSingleModel(singlemodel);
+initializeImalatModel(imalatmodel);
 
 ui->tableView_2->setModel(assemblymodel);
 ui->tableView_3->setModel(asspartsmodel);
 ui->tableView_4->setModel(singlemodel);
+ui->tableView_5->setModel(imalatmodel);
+
 //
 ui->tableView_2->hideColumn(0);
 ui->tableView_2->hideColumn(1);
@@ -195,10 +215,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::UpdateDetail(const QModelIndex &a, const QModelIndex &b)
 {
-
             auto record = assemblymodel->record(a.row());
             int id = record.value("selfid").toInt();
             asspartsmodel->setFilter(QString("aid=%1").arg(id));
+            //
+            imalatmodel->setFilter(QString("selfid=%1").arg(id));
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -209,4 +230,22 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 {
     assemblymodel->setFilter(QString("poz like '%%1%'").arg(arg1));
+}
+
+void MainWindow::on_tableView_2_doubleClicked(const QModelIndex &index)
+{
+    Addmanudialog->show();
+    if (Addmanudialog->cr)
+    {
+    QSqlRecord *r = new QSqlRecord();
+    QSqlRecord a = assemblymodel->record(index.row());
+
+
+    r->setValue("adet", Addmanudialog->boyaadet);
+    r->setValue("selfid", a.fieldName(1));
+
+    imalatmodel->insertRecord(imalatmodel->rowCount(),*r);
+    ui->tableView_2->update();
+    Addmanudialog->cr = false;
+    }
 }
