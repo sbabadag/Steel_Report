@@ -10,6 +10,7 @@
 #include "connection.h"
 #include <QSqlRecord>
 #include <QItemSelectionModel>
+#include <addmanu.h>
 
 QString MainWindow::GetPartFileName()
 {
@@ -124,7 +125,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
 
     ui->setupUi(this);
-    Addmanudialog = new Addmanu();
+    Addmanudialog = new Addmanu(this);
     createConnection();
 
     projemodel    = new QSqlTableModel();
@@ -205,7 +206,22 @@ ui->tableView->hideColumn(0);
 QObject::connect(ui->tableView_2->selectionModel(), SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
       this,SLOT(UpdateDetail(const QModelIndex &, const QModelIndex &)));
 
+QObject::connect(Addmanudialog, SIGNAL(SaveMyProduction()),
+      this,SLOT(SaveProduction()));
 
+}
+
+void MainWindow::SaveProduction()
+{
+
+    QSqlQuery query;
+    if (Addmanudialog->cr)
+    {
+        QString str = QString("insert into imalat values(0,%1,%2,%3','1974-06-06','1974-06-06','1974-06-06','8/5','Ali Kalender')").arg(assemblymodel->record().field('selfid')->value()).arg(Addmanudialog->catimadet).arg(assemblymodel->fieldIndex("poz"));
+        query.exec(str);
+
+    Addmanudialog->cr = false;
+    }
 }
 
 MainWindow::~MainWindow()
@@ -234,18 +250,6 @@ void MainWindow::on_lineEdit_textChanged(const QString &arg1)
 
 void MainWindow::on_tableView_2_doubleClicked(const QModelIndex &index)
 {
+    Addmanudialog->mindex = &index;
     Addmanudialog->show();
-    if (Addmanudialog->cr)
-    {
-    QSqlRecord *r = new QSqlRecord();
-    QSqlRecord a = assemblymodel->record(index.row());
-
-
-    r->setValue("adet", Addmanudialog->boyaadet);
-    r->setValue("selfid", a.fieldName(1));
-
-    imalatmodel->insertRecord(imalatmodel->rowCount(),*r);
-    ui->tableView_2->update();
-    Addmanudialog->cr = false;
-    }
 }

@@ -18,15 +18,26 @@ public:
     int catimadet;
     int boyaadet;
     bool cr;
+   const QModelIndex *mindex;
+
+   signals:
+   void SaveMyProduction();
 
 
 private slots:
+
     void on_buttonBox_accepted();
 
     void on_buttonBox_rejected();
+
+    void on_Addmanu_finished(int result);
+
+
+
 
 private:
     Ui::Addmanu *ui;
 };
 
 #endif // ADDMANU_H
+

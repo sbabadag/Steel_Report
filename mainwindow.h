@@ -15,10 +15,6 @@
 #include <QStringListModel>
 #include <addmanu.h>
 
-
-
-
-
 namespace Ui {
 class MainWindow;
 }
@@ -33,6 +29,8 @@ public:
     QSqlTableModel *asspartsmodel;
     QSqlTableModel *singlemodel;
     QSqlTableModel *imalatmodel;
+    Addmanu *Addmanudialog;
+
 
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
@@ -40,11 +38,15 @@ public:
     QString GetAssemblyFileName();
     void OpenProject();
 
+public slots:
+    void SaveProduction();
+
 
 
 
 private slots:
     void UpdateDetail(const QModelIndex &a, const QModelIndex &b);
+
 
 
     void on_pushButton_clicked();
@@ -55,7 +57,6 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Addmanu *Addmanudialog;
 };
 
 #endif // MAINWINDOW_H

@@ -40,7 +40,6 @@ HEADERS += \
 FORMS += \
         mainwindow.ui \
     addmanu.ui \
-    addmanu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

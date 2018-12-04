@@ -1,5 +1,6 @@
 #include "addmanu.h"
 #include "ui_addmanu.h"
+#include <mainwindow.h>
 
 Addmanu::Addmanu(QWidget *parent) :
     QDialog(parent),
@@ -25,3 +26,10 @@ void Addmanu::on_buttonBox_rejected()
 {
     cr= false;
 }
+
+void Addmanu::on_Addmanu_finished(int result)
+{
+ SaveMyProduction();
+}
+
+
