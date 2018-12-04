@@ -88,7 +88,7 @@ static bool createConnection()
 
     QString str = QString("insert into proje values(0,'ENGIE V1','2018-11-30','2018-12-30',0)");
     query.exec(str);
-
+db.close();
     return true;
 }
 //! [0]

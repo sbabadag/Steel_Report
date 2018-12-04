@@ -16,19 +16,18 @@ Addmanu::~Addmanu()
 
 void Addmanu::on_buttonBox_accepted()
 {
-    catimadet = ui->lineEdit->text().toInt();
-    kaynakadet = ui->lineEdit_2->text().toInt();
-    boyaadet = ui->lineEdit_3->text().toInt();
-    cr = true;
+
 }
 
 void Addmanu::on_buttonBox_rejected()
 {
-    cr= false;
 }
 
 void Addmanu::on_Addmanu_finished(int result)
 {
+ catimadet = ui->lineEdit->text().toInt();
+ kaynakadet = ui->lineEdit_2->text().toInt();
+ boyaadet = ui->lineEdit_3->text().toInt();
  SaveMyProduction();
 }
 

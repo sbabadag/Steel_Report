@@ -11,6 +11,7 @@
 #include <QSqlRecord>
 #include <QItemSelectionModel>
 #include <addmanu.h>
+#include <QMessageBox>
 
 QString MainWindow::GetPartFileName()
 {
@@ -153,8 +154,6 @@ void  MainWindow::OpenProject()
     }
     QSqlQuery query;
 
-
-
 auto P = ReadPartListFile(GetPartFileName());
 auto A = ReadAssemlyPartListFile(GetAssemblyFileName());
 
@@ -179,10 +178,13 @@ for (unsigned int i=0; i<A.size();i++)
 
     }
 }
+
+db.close();
+
 assemblymodel = new  QSqlTableModel() ;
 asspartsmodel = new  QSqlTableModel() ;
 singlemodel   = new  QSqlTableModel() ;
-imalatmodel = new  QSqlTableModel() ;
+imalatmodel   = new  QSqlTableModel() ;
 
 initializeAssemblyModel(assemblymodel);
 initializeAsspartsModel(asspartsmodel);
@@ -213,15 +215,24 @@ QObject::connect(Addmanudialog, SIGNAL(SaveMyProduction()),
 
 void MainWindow::SaveProduction()
 {
+        imalatmodel->select();
+        QVariant A = assemblymodel->record(Addmanudialog->mindex->row()).value("selfid");
+        QVariant B = assemblymodel->record(Addmanudialog->mindex->row()).value("poz");
+        int row = Addmanudialog->mindex->row();
+        imalatmodel->insertRows(row, 1);
+        imalatmodel->setData(imalatmodel->index(row, 0), 0);
+        imalatmodel->setData(imalatmodel->index(row, 1), A.toInt());
+        imalatmodel->setData(imalatmodel->index(row, 2), Addmanudialog->boyaadet);
+        imalatmodel->setData(imalatmodel->index(row, 3), B.toString());
+        imalatmodel->setData(imalatmodel->index(row, 4), "1974-06-06");
+        imalatmodel->setData(imalatmodel->index(row, 5), "1974-06-06");
+        imalatmodel->setData(imalatmodel->index(row, 6), "1974-06-06");
+        imalatmodel->setData(imalatmodel->index(row, 7), "1974-06-06");
+        imalatmodel->setData(imalatmodel->index(row, 8), "1974-06-06");
 
-    QSqlQuery query;
-    if (Addmanudialog->cr)
-    {
-        QString str = QString("insert into imalat values(0,%1,%2,%3','1974-06-06','1974-06-06','1974-06-06','8/5','Ali Kalender')").arg(assemblymodel->record().field('selfid')->value()).arg(Addmanudialog->catimadet).arg(assemblymodel->fieldIndex("poz"));
-        query.exec(str);
+        imalatmodel->submitAll();
+        ui->tableView_5->update();
 
-    Addmanudialog->cr = false;
-    }
 }
 
 MainWindow::~MainWindow()
