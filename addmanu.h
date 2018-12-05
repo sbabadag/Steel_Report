@@ -2,6 +2,7 @@
 #define ADDMANU_H
 
 #include <QDialog>
+#include <QDateTime>
 
 namespace Ui {
 class Addmanu;
@@ -14,9 +15,14 @@ class Addmanu : public QDialog
 public:
     explicit Addmanu(QWidget *parent = nullptr);
     ~Addmanu();
-    int kaynakadet;
-    int catimadet;
-    int boyaadet;
+    int adet;
+    QString imalatci;
+    QString uygunsuzluk;
+    QDate tarih;
+    QDate catimtarih;
+    QDate kaynaktarih;
+    QDate boyatarih;
+
     bool cr;
    const QModelIndex *mindex;
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>176</width>
-    <height>219</height>
+    <width>466</width>
+    <height>411</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <property name="geometry">
     <rect>
      <x>10</x>
-     <y>180</y>
-     <width>151</width>
+     <y>370</y>
+     <width>431</width>
      <height>32</height>
     </rect>
    </property>
@@ -34,91 +34,133 @@
     <rect>
      <x>10</x>
      <y>10</y>
-     <width>151</width>
-     <height>161</height>
+     <width>431</width>
+     <height>351</height>
     </rect>
    </property>
    <property name="title">
     <string>GroupBox</string>
    </property>
-   <widget class="QLineEdit" name="lineEdit_2">
+   <widget class="QComboBox" name="comboBox_2">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>95</x>
       <y>60</y>
-      <width>60</width>
-      <height>21</height>
-     </rect>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>30</y>
-      <width>60</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="clearButtonEnabled">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>90</y>
-      <width>47</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Boya : </string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit_3">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>90</y>
-      <width>60</width>
-      <height>21</height>
+      <width>86</width>
+      <height>25</height>
      </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>60</y>
-      <width>47</width>
-      <height>13</height>
+      <x>50</x>
+      <y>34</y>
+      <width>41</width>
+      <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Kaynak : </string>
+     <string>İşlem : </string>
     </property>
    </widget>
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>30</y>
-      <width>47</width>
-      <height>13</height>
+      <x>13</x>
+      <y>61</y>
+      <width>81</width>
+      <height>17</height>
      </rect>
     </property>
     <property name="text">
-     <string>Çatım : </string>
+     <string>İmalatçı Adı :  </string>
     </property>
+   </widget>
+   <widget class="QCalendarWidget" name="calendarWidget">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>142</y>
+      <width>331</width>
+      <height>201</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>8</x>
+      <y>142</y>
+      <width>81</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>İmalat Tarihi :  </string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="lineEdit_2">
+    <property name="geometry">
+     <rect>
+      <x>96</x>
+      <y>92</y>
+      <width>321</width>
+      <height>25</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_5">
+    <property name="geometry">
+     <rect>
+      <x>3</x>
+      <y>95</y>
+      <width>91</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Uygunsuzluk :   </string>
+    </property>
+   </widget>
+   <widget class="QSplitter" name="splitter">
+    <property name="geometry">
+     <rect>
+      <x>95</x>
+      <y>30</y>
+      <width>260</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+    <widget class="QComboBox" name="comboBox">
+     <property name="currentText">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string>Adet </string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="lineEdit">
+     <property name="minimumSize">
+      <size>
+       <width>30</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="clearButtonEnabled">
+      <bool>true</bool>
+     </property>
+    </widget>
    </widget>
   </widget>
  </widget>
  <tabstops>
   <tabstop>lineEdit</tabstop>
-  <tabstop>lineEdit_2</tabstop>
-  <tabstop>lineEdit_3</tabstop>
  </tabstops>
  <resources/>
  <connections>

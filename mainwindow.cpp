@@ -58,13 +58,6 @@ void initializeAssemblyModel(QSqlTableModel *assemblymodel)
     assemblymodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Adet"));
     assemblymodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Üretilen Adet"));
     assemblymodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Ağırlık"));
-    assemblymodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Çatım Tarihi"));
-    assemblymodel->setHeaderData(8, Qt::Horizontal, QObject::tr("Kaynak Tarihi"));
-    assemblymodel->setHeaderData(9, Qt::Horizontal, QObject::tr("Boya Tarihi"));
-    assemblymodel->setHeaderData(10, Qt::Horizontal, QObject::tr("İmalatçı"));
-    assemblymodel->setHeaderData(11, Qt::Horizontal, QObject::tr("Uygunsuzluk"));
-
-
 }
 
 void initializeAsspartsModel(QSqlTableModel *asspartsmodel)
@@ -112,12 +105,12 @@ void initializeImalatModel(QSqlTableModel *imalatmodel)
     imalatmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
     imalatmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Ass. ID"));
     imalatmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Adet"));
-    imalatmodel->setHeaderData(3, Qt::Horizontal, QObject::tr(" ASSEMBLY POZ"));
+    imalatmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("ASSEMBLY POZ"));
     imalatmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Çatım tarih"));
     imalatmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Kaynak tarihi"));
     imalatmodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Boya tarihi"));
-    imalatmodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Uygunsuzluk"));
-    imalatmodel->setHeaderData(8, Qt::Horizontal, QObject::tr("İmalatı yapan"));
+    imalatmodel->setHeaderData(7, Qt::Horizontal, QObject::tr("İmalatı yapan"));
+    imalatmodel->setHeaderData(8, Qt::Horizontal, QObject::tr(""));
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -167,7 +160,7 @@ for (unsigned int i=0; i<P.size();i++)
 
 for (unsigned int i=0; i<A.size();i++)
 {
-    QString str = QString("insert into assembly values(0,%1,'%2','%3',%4,0,%5,'01-01-2000','01-01-2000','01-01-2000',' ',' ')").arg(A[i]->ID).arg(A[i]->Assemblypos).arg(A[i]->Profile).arg(A[i]->Quantity).arg(A[i]->Weight);
+    QString str = QString("insert into assembly values(0,%1,'%2','%3',%4,0,%5)").arg(A[i]->ID).arg(A[i]->Assemblypos).arg(A[i]->Profile).arg(A[i]->Quantity).arg(A[i]->Weight);
    query.exec(str);
    //
     auto PP = A[i]->Part_list;
@@ -215,23 +208,24 @@ QObject::connect(Addmanudialog, SIGNAL(SaveMyProduction()),
 
 void MainWindow::SaveProduction()
 {
-        imalatmodel->select();
+    imalatmodel->select();
+
+QSqlRecord r =imalatmodel->record();
         QVariant A = assemblymodel->record(Addmanudialog->mindex->row()).value("selfid");
         QVariant B = assemblymodel->record(Addmanudialog->mindex->row()).value("poz");
-        int row = Addmanudialog->mindex->row();
-        imalatmodel->insertRows(row, 1);
-        imalatmodel->setData(imalatmodel->index(row, 0), 0);
-        imalatmodel->setData(imalatmodel->index(row, 1), A.toInt());
-        imalatmodel->setData(imalatmodel->index(row, 2), Addmanudialog->boyaadet);
-        imalatmodel->setData(imalatmodel->index(row, 3), B.toString());
-        imalatmodel->setData(imalatmodel->index(row, 4), "1974-06-06");
-        imalatmodel->setData(imalatmodel->index(row, 5), "1974-06-06");
-        imalatmodel->setData(imalatmodel->index(row, 6), "1974-06-06");
-        imalatmodel->setData(imalatmodel->index(row, 7), "1974-06-06");
-        imalatmodel->setData(imalatmodel->index(row, 8), "1974-06-06");
+        r.setValue("pid",0);
+        r.setValue("selfid",A.toInt());
+        r.setValue("adet", Addmanudialog->adet);
+        r.setValue("poz",B.toString());
+        r.setValue("catim_tarihi",Addmanudialog->catimtarih.toString("yyyy-dd-MM"));
+        r.setValue("kaynak_tarihi",Addmanudialog->kaynaktarih.toString("yyyy-dd-MM"));
+        r.setValue("boya_tarihi",Addmanudialog->boyatarih.toString("yyyy-dd-MM"));
+        r.setValue("imalatci",Addmanudialog->imalatci);
+        r.setValue("uygunsuzluk",Addmanudialog->uygunsuzluk);
+
+      imalatmodel->insertRecord(-1,r);
 
         imalatmodel->submitAll();
-        ui->tableView_5->update();
 
 }
 

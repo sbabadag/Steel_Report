@@ -56,12 +56,7 @@ static bool createConnection()
                                      "profil varchar(40), "
                                      "adet int,"
                                      "uadet int,"
-                                     "agirlik real,"
-                                     "catim_tarihi date,"
-                                     "kaynak_tarihi date,"
-                                     "boya_tarihi date,"
-                                     "imalatci varchar(50),"
-                                     "uygunsuzluk varchar(255) )");
+                                     "agirlik real)");
 
     query.exec("create table imalat (pid int,"
                                     "selfid int,"
@@ -88,6 +83,10 @@ static bool createConnection()
 
     QString str = QString("insert into proje values(0,'ENGIE V1','2018-11-30','2018-12-30',0)");
     query.exec(str);
+
+    QString str1 = QString("insert into imalat values(0,1,2,'poz','2018-11-30','2018-11-30','2018-12-30','ali','8/8')");
+    query.exec(str1);
+
 db.close();
     return true;
 }

@@ -68,13 +68,13 @@ while(!in.atEnd()) {
 
     {
         APart = new TeklaPart;
-        APart->PartPos   = fields[0];
-        APart->Profile   = fields[1];
-        APart->Quantity  = fields[2].toInt();
-        APart->Material  = fields[3];
-        APart->Length    = fields[4].toInt();
-        APart->Area      = fields[5].toDouble();
-        APart->Weight    = fields[6].toDouble();
+        APart->PartPos      = fields[0];
+        APart->Profile         = fields[1];
+        APart->Quantity    = fields[2].toInt();
+        APart->Material    = fields[3];
+        APart->Length       = fields[4].toInt();
+        APart->Area           = fields[5].toDouble();
+        APart->Weight      = fields[6].toDouble();
         Part_list.push_back(APart);
     }
 }
