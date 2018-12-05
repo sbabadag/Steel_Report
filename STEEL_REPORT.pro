@@ -41,6 +41,11 @@ FORMS += \
         mainwindow.ui \
     addmanu.ui \
 
+INCLUDEPATH  += /usr/include/poppler/qt4
+
+LIBS         += -L/usr/lib -lpoppler-qt4
+
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin

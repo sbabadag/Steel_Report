@@ -105,12 +105,12 @@ void initializeImalatModel(QSqlTableModel *imalatmodel)
     imalatmodel->setHeaderData(0, Qt::Horizontal, QObject::tr("Proje ID"));
     imalatmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Ass. ID"));
     imalatmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Adet"));
-    imalatmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("ASSEMBLY POZ"));
+    imalatmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("POZ"));
     imalatmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Çatım tarih"));
     imalatmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Kaynak tarihi"));
     imalatmodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Boya tarihi"));
     imalatmodel->setHeaderData(7, Qt::Horizontal, QObject::tr("İmalatı yapan"));
-    imalatmodel->setHeaderData(8, Qt::Horizontal, QObject::tr(""));
+    imalatmodel->setHeaderData(8, Qt::Horizontal, QObject::tr("Uygunsuzluk"));
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -196,6 +196,9 @@ ui->tableView_3->hideColumn(0);
 ui->tableView_3->hideColumn(1);
 ui->tableView_3->hideColumn(2);
 ui->tableView->hideColumn(0);
+ui->tableView_5->hideColumn(0);
+ui->tableView_5->hideColumn(1);
+
 
 
 QObject::connect(ui->tableView_2->selectionModel(), SIGNAL(currentChanged(const QModelIndex &, const QModelIndex &)),
