@@ -47,10 +47,29 @@
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>200</y>
-        <width>411</width>
+        <y>240</y>
+        <width>461</width>
         <height>192</height>
        </rect>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>220</y>
+        <width>47</width>
+        <height>13</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
+      </property>
+      <property name="text">
+       <string>Metraj</string>
       </property>
      </widget>
     </widget>
@@ -88,19 +107,6 @@
         <width>751</width>
         <height>211</height>
        </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>520</y>
-        <width>47</width>
-        <height>13</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>TextLabel</string>
       </property>
      </widget>
      <widget class="QLineEdit" name="lineEdit">
@@ -181,6 +187,30 @@
      <height>20</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuDosya">
+    <property name="title">
+     <string>Dosya</string>
+    </property>
+    <addaction name="actionA"/>
+   </widget>
+   <widget class="QMenu" name="menuAyarlar">
+    <property name="title">
+     <string>Ayarlar</string>
+    </property>
+    <addaction name="actionMaliyet_ayarlar"/>
+    <addaction name="actionGenel_ayarlar"/>
+   </widget>
+   <widget class="QMenu" name="menuRaporlar">
+    <property name="title">
+     <string>Raporlar</string>
+    </property>
+    <addaction name="actionKaynak_raporlar"/>
+    <addaction name="actionat_m_Raporlar"/>
+    <addaction name="actionBoya_raporlar"/>
+   </widget>
+   <addaction name="menuDosya"/>
+   <addaction name="menuAyarlar"/>
+   <addaction name="menuRaporlar"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
@@ -191,6 +221,36 @@
    </attribute>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <action name="actionA">
+   <property name="text">
+    <string>Aç...</string>
+   </property>
+  </action>
+  <action name="actionMaliyet_ayarlar">
+   <property name="text">
+    <string>Maliyet ayarları</string>
+   </property>
+  </action>
+  <action name="actionGenel_ayarlar">
+   <property name="text">
+    <string>Genel ayarlar</string>
+   </property>
+  </action>
+  <action name="actionKaynak_raporlar">
+   <property name="text">
+    <string>Kaynak raporları</string>
+   </property>
+  </action>
+  <action name="actionat_m_Raporlar">
+   <property name="text">
+    <string>Çatım raporları</string>
+   </property>
+  </action>
+  <action name="actionBoya_raporlar">
+   <property name="text">
+    <string>Boya raporları</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources/>
