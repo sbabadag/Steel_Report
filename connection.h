@@ -62,9 +62,8 @@ static bool createConnection()
                                     "selfid int,"
                                     "adet int,"
                                     "poz varchar(40), "
-                                     "catim_tarihi date,"
-                                     "kaynak_tarihi date,"
-                                     "boya_tarihi date,"
+                                     "tarih date,"
+                                     "imalattipi varchar(40),"
                                      "imalatci varchar(50),"
                                      "uygunsuzluk varchar(255) )");
 

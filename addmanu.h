@@ -18,12 +18,8 @@ public:
     int adet;
     QString imalatci;
     QString uygunsuzluk;
+    QString imalat_tipi;
     QDate tarih;
-    QDate catimtarih;
-    QDate kaynaktarih;
-    QDate boyatarih;
-
-    bool cr;
    const QModelIndex *mindex;
 
    signals:

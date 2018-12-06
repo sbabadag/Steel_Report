@@ -43,6 +43,16 @@
        </rect>
       </property>
      </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>200</y>
+        <width>411</width>
+        <height>192</height>
+       </rect>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="tab_2">
      <attribute name="title">

@@ -12,6 +12,7 @@
 #include <QItemSelectionModel>
 #include <addmanu.h>
 #include <QMessageBox>
+#include <QTableWidget>
 
 QString MainWindow::GetPartFileName()
 {
@@ -106,11 +107,46 @@ void initializeImalatModel(QSqlTableModel *imalatmodel)
     imalatmodel->setHeaderData(1, Qt::Horizontal, QObject::tr("Ass. ID"));
     imalatmodel->setHeaderData(2, Qt::Horizontal, QObject::tr("Adet"));
     imalatmodel->setHeaderData(3, Qt::Horizontal, QObject::tr("POZ"));
-    imalatmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Çatım tarih"));
-    imalatmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("Kaynak tarihi"));
-    imalatmodel->setHeaderData(6, Qt::Horizontal, QObject::tr("Boya tarihi"));
-    imalatmodel->setHeaderData(7, Qt::Horizontal, QObject::tr("İmalatı yapan"));
-    imalatmodel->setHeaderData(8, Qt::Horizontal, QObject::tr("Uygunsuzluk"));
+    imalatmodel->setHeaderData(4, Qt::Horizontal, QObject::tr("Tarih"));
+    imalatmodel->setHeaderData(5, Qt::Horizontal, QObject::tr("İmalat tipi"));
+    imalatmodel->setHeaderData(6, Qt::Horizontal, QObject::tr("İmalatı yapan"));
+    imalatmodel->setHeaderData(7, Qt::Horizontal, QObject::tr("Uygunsuzluk"));
+}
+
+void initializeProfileListWidget(QTableWidget *W,QString f)
+{
+    QStringList *L = new QStringList();
+
+    L->push_back(QString("Profil"));
+    L->push_back(QString("Toplam uzunluk"));
+    L->push_back(QString("Boya Alanı"));
+    L->push_back(QString("Ağırlık"));
+
+
+
+    W->setColumnCount(4);
+   W->setHorizontalHeaderLabels(*L);
+
+
+          std::vector<TeklaPart*>  Pr = profileList(f);
+          W->setRowCount(Pr.size());
+
+   for (unsigned int i=0;i<Pr.size();i++)
+   {
+       double LL,BOY,ag;
+       LL = Pr[i]->Length ;
+       QString LLS = QString::number(LL,'G',5);
+       BOY = Pr[i]->Area ;
+       QString BOYS = QString::number(BOY,'G',5);
+       ag = Pr[i]->Weight ;
+       QString ags = QString::number(ag,'G',5);
+
+       W->setItem(i,0,new QTableWidgetItem(Pr[i]->Profile));
+       W->setItem(i,1,new QTableWidgetItem(LLS));
+       W->setItem(i,2,new QTableWidgetItem(BOYS));
+       W->setItem(i,3,new QTableWidgetItem(ags));
+
+   }
 }
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -146,9 +182,10 @@ void  MainWindow::OpenProject()
                         "Click Cancel to exit."), QMessageBox::Cancel);
     }
     QSqlQuery query;
-
-auto P = ReadPartListFile(GetPartFileName());
-auto A = ReadAssemlyPartListFile(GetAssemblyFileName());
+PartFileName = GetPartFileName();
+AssemblyFileName = GetAssemblyFileName();
+auto P = ReadPartListFile(PartFileName);
+auto A = ReadAssemlyPartListFile(AssemblyFileName);
 
 for (unsigned int i=0; i<P.size();i++)
 {
@@ -183,6 +220,7 @@ initializeAssemblyModel(assemblymodel);
 initializeAsspartsModel(asspartsmodel);
 initializeSingleModel(singlemodel);
 initializeImalatModel(imalatmodel);
+initializeProfileListWidget(ui->tableWidget,PartFileName);
 
 ui->tableView_2->setModel(assemblymodel);
 ui->tableView_3->setModel(asspartsmodel);
@@ -220,9 +258,8 @@ QSqlRecord r =imalatmodel->record();
         r.setValue("selfid",A.toInt());
         r.setValue("adet", Addmanudialog->adet);
         r.setValue("poz",B.toString());
-        r.setValue("catim_tarihi",Addmanudialog->catimtarih.toString("yyyy-dd-MM"));
-        r.setValue("kaynak_tarihi",Addmanudialog->kaynaktarih.toString("yyyy-dd-MM"));
-        r.setValue("boya_tarihi",Addmanudialog->boyatarih.toString("yyyy-dd-MM"));
+        r.setValue("tarih",Addmanudialog->tarih.toString("yyyy-dd-MM"));
+        r.setValue("imalattipi",Addmanudialog->imalat_tipi);
         r.setValue("imalatci",Addmanudialog->imalatci);
         r.setValue("uygunsuzluk",Addmanudialog->uygunsuzluk);
 

@@ -41,9 +41,7 @@ FORMS += \
         mainwindow.ui \
     addmanu.ui \
 
-INCLUDEPATH  += /usr/include/poppler/qt4
 
-LIBS         += -L/usr/lib -lpoppler-qt4
 
 
 # Default rules for deployment.

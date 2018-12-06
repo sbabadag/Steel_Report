@@ -30,6 +30,8 @@ public:
     QSqlTableModel *singlemodel;
     QSqlTableModel *imalatmodel;
     Addmanu *Addmanudialog;
+    QString PartFileName;
+    QString AssemblyFileName;
 
 
     explicit MainWindow(QWidget *parent = nullptr);

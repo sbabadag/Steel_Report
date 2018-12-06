@@ -23,7 +23,7 @@ struct TeklaPart {
     int Quantity;
     int mQuantity;
     QString Material;
-    unsigned int Length;
+    long Length;
     double Area;
     double Weight;
     unsigned int owner;
@@ -68,13 +68,13 @@ while(!in.atEnd()) {
 
     {
         APart = new TeklaPart;
-        APart->PartPos      = fields[0];
-        APart->Profile         = fields[1];
-        APart->Quantity    = fields[2].toInt();
-        APart->Material    = fields[3];
-        APart->Length       = fields[4].toInt();
-        APart->Area           = fields[5].toDouble();
-        APart->Weight      = fields[6].toDouble();
+        APart->PartPos           = fields[0];
+        APart->Profile              = fields[1];
+        APart->Quantity         = fields[2].toInt();
+        APart->Material         = fields[3];
+        APart->Length            = fields[4].toInt();
+        APart->Area                = fields[5].toDouble();
+        APart->Weight            = fields[6].toDouble();
         Part_list.push_back(APart);
     }
 }
@@ -131,15 +131,15 @@ while(!in.atEnd()) {
         if (fields.size() == 6)
         {
 
-        APart            = new TeklaPart;
-        APart->PartPos   = fields[0];
-        APart->Profile   = fields[2];
-        APart->Quantity  = fields[1].toInt();
-        APart->Material  = fields[3];
-        APart->Length    = fields[4].toInt();
-        APart->Weight    = fields[5].toDouble();
-        APart->owner     = Assembly_Count-1;
-        Part_list->push_back(APart);
+            APart                           = new TeklaPart;
+            APart->PartPos          = fields[0];
+            APart->Profile           = fields[2];
+            APart->Quantity          = fields[1].toInt();
+            APart->Material         = fields[3];
+            APart->Length           = fields[4].toInt();
+            APart->Weight           = fields[5].toDouble();
+            APart->owner            = Assembly_Count-1;
+            Part_list->push_back(APart);
     }
 }
 }
@@ -147,6 +147,50 @@ while(!in.atEnd()) {
 file.close();
  return Assembly_Part_list;
 }
+
+std::vector<TeklaPart*> profileList(QString f)
+{
+    QString Profile;
+    std::vector<TeklaPart*> P,Pr;
+    std::vector<QString> ExL;
+    long Length = 0;
+    double boyaalani1=0;
+    double agirlik1=0;
+
+    P = ReadPartListFile(f);
+      for (unsigned int i=0;i<P.size();i++)
+      {
+          Profile = P[i]->Profile;
+          {
+              std::vector<QString>::iterator findIter = std::find(ExL.begin(),ExL.end(), Profile) ;
+              if (findIter == ExL.end())
+              {
+                  for (unsigned int j=0;j<P.size();j++)
+                  {
+                      if (Profile == P[j]->Profile)
+                      {
+                          Length          += P[j]->Length*P[j]->Quantity;
+                          boyaalani1     += P[j]->Area;
+                          agirlik1           += P[j]->Weight*P[j]->Quantity;
+                      }
+                  }
+                  ExL.push_back(Profile);
+                  TeklaPart *T = new TeklaPart;
+                  T->Profile = Profile;
+                  T->Length= Length;
+                  T->Area=boyaalani1;
+                  T->Weight=agirlik1;
+                  Pr.push_back(T);
+                  Length = 0;
+                 boyaalani1=0;
+                  agirlik1 =0;
+          }
+
+     }
+      }
+      return Pr;
+}
+
 
 
 
